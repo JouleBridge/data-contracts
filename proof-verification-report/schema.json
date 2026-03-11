@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/proof-verification-report/v1/schema.json",
+  "title": "ProofVerificationReport",
+  "type": "object",
+  "required": [
+    "proof_id",
+    "verification_state",
+    "summary",
+    "checks",
+    "generated_at"
+  ],
+  "properties": {
+    "proof_id": { "type": "string" },
+    "event_id": { "type": ["string", "null"] },
+    "device_id": { "type": ["string", "null"] },
+    "verification_state": {
+      "type": "string",
+      "enum": ["verified", "warning", "failed"]
+    },
+    "summary": {
+      "type": "object",
+      "required": ["total_checks", "pass_count", "warn_count", "fail_count"],
+      "properties": {
+        "total_checks": { "type": "integer" },
+        "pass_count": { "type": "integer" },
+        "warn_count": { "type": "integer" },
+        "fail_count": { "type": "integer" }
+      },
+      "additionalProperties": false
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "status", "message"],
+        "properties": {
+          "name": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["pass", "warn", "fail"]
+          },
+          "message": { "type": "string" },
+          "details": {}
+        },
+        "additionalProperties": false
+      }
+    },
+    "linked_event": {
+      "type": ["object", "null"],
+      "properties": {
+        "event_id": { "type": "string" },
+        "device_id": { "type": ["string", "null"] },
+        "tenant_id": { "type": ["string", "null"] },
+        "site_id": { "type": ["string", "null"] }
+      },
+      "required": ["event_id", "device_id", "tenant_id", "site_id"],
+      "additionalProperties": false
+    },
+    "linked_device": {
+      "type": ["object", "null"],
+      "properties": {
+        "device_id": { "type": "string" },
+        "tenant_id": { "type": ["string", "null"] },
+        "site_id": { "type": ["string", "null"] },
+        "lifecycle_state": { "type": ["string", "null"] }
+      },
+      "required": ["device_id", "tenant_id", "site_id", "lifecycle_state"],
+      "additionalProperties": false
+    },
+    "generated_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

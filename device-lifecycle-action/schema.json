@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/device-lifecycle-action/v1/schema.json",
+  "title": "DeviceLifecycleAction",
+  "type": "object",
+  "required": ["actor"],
+  "properties": {
+    "actor": { "type": "string" },
+    "reason": { "type": "string" },
+    "effective_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}
