@@ -3,13 +3,71 @@
   "$id": "https://joulebridge/contracts/device-registration/v1/schema.json",
   "title": "DeviceRegistration",
   "type": "object",
-  "required": ["device_id", "public_key", "registered_at"],
+  "required": [
+    "device_id",
+    "node_id",
+    "environment",
+    "did",
+    "active_key_id",
+    "active_key_version",
+    "public_key_hex",
+    "registered_at",
+    "key_history",
+    "rotation_attestations"
+  ],
   "properties": {
     "device_id": { "type": "string" },
-    "public_key": { "type": "string" },
+    "node_id": { "type": "string" },
+    "environment": { "type": "string" },
+    "did": { "type": "string" },
+    "active_key_id": { "type": "string" },
+    "active_key_version": { "type": "integer" },
+    "public_key_hex": { "type": "string" },
     "registered_at": { "type": "string", "format": "date-time" },
     "site_id": { "type": "string" },
-    "tenant_id": { "type": "string" }
+    "tenant_id": { "type": "string" },
+    "key_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key_id", "key_version", "public_key_hex", "created_at", "active"],
+        "properties": {
+          "key_id": { "type": "string" },
+          "key_version": { "type": "integer" },
+          "public_key_hex": { "type": "string" },
+          "created_at": { "type": "integer" },
+          "active": { "type": "boolean" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "rotation_attestations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "previous_key_id",
+          "previous_key_version",
+          "previous_public_key_hex",
+          "next_key_id",
+          "next_key_version",
+          "next_public_key_hex",
+          "rotated_at",
+          "continuity_signature_hex"
+        ],
+        "properties": {
+          "previous_key_id": { "type": "string" },
+          "previous_key_version": { "type": "integer" },
+          "previous_public_key_hex": { "type": "string" },
+          "next_key_id": { "type": "string" },
+          "next_key_version": { "type": "integer" },
+          "next_public_key_hex": { "type": "string" },
+          "rotated_at": { "type": "integer" },
+          "continuity_signature_hex": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    }
   },
   "additionalProperties": true
 }
