@@ -3,11 +3,34 @@
   "$id": "https://joulebridge/contracts/policy-bundle/v1/schema.json",
   "title": "PolicyBundle",
   "type": "object",
-  "required": ["version", "default_action", "rules"],
+  "required": ["version", "default_action", "signature_hex", "rules"],
   "properties": {
     "version": { "type": "string" },
-    "default_action": { "type": "string" },
-    "rules": { "type": "array", "items": { "type": "object" } }
+    "default_action": { "type": "string", "enum": ["allow", "deny"] },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "signature_hex": { "type": "string" },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "rule_type", "action"],
+        "properties": {
+          "name": { "type": "string" },
+          "rule_type": { "type": "string", "enum": ["match", "range", "temporal"] },
+          "action": { "type": "string", "enum": ["allow", "deny", "flag"] },
+          "sector": { "type": "string" },
+          "event_type": { "type": "string" },
+          "source": { "type": "string" },
+          "max_payload_bytes": { "type": "integer", "minimum": 0 },
+          "field": { "type": "string" },
+          "min_value": { "type": "number" },
+          "max_value": { "type": "number" },
+          "max_future_offset_secs": { "type": "integer" },
+          "max_past_offset_secs": { "type": "integer" }
+        },
+        "additionalProperties": true
+      }
+    }
   },
   "additionalProperties": true
 }
