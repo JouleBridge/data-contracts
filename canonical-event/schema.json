@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/canonical-event/v1/schema.json",
+  "title": "CanonicalEvent",
+  "type": "object",
+  "required": ["event_id", "sector", "event_type", "source", "timestamp", "payload"],
+  "properties": {
+    "event_id": { "type": "string" },
+    "sector": { "type": "string" },
+    "event_type": { "type": "string" },
+    "source": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "payload": { "type": "object" },
+    "schema_version": { "type": "string", "default": "v1" }
+  },
+  "additionalProperties": true
+}

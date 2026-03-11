@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/evidence-pack/v1/schema.json",
+  "title": "EvidencePack",
+  "type": "object",
+  "required": ["pack_id", "subject_type", "generated_at", "artifacts"],
+  "properties": {
+    "pack_id": { "type": "string" },
+    "subject_type": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "artifacts": { "type": "array", "items": { "type": "object" } }
+  },
+  "additionalProperties": true
+}

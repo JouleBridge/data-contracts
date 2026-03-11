@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/proof-envelope/v1/schema.json",
+  "title": "ProofEnvelope",
+  "type": "object",
+  "required": ["proof_id", "event_id", "payload_hash", "signature", "public_key", "signed_at"],
+  "properties": {
+    "proof_id": { "type": "string" },
+    "event_id": { "type": "string" },
+    "payload_hash": { "type": "string" },
+    "signature": { "type": "string" },
+    "public_key": { "type": "string" },
+    "signed_at": { "type": "string", "format": "date-time" },
+    "proof_version": { "type": "string", "default": "v1" }
+  },
+  "additionalProperties": true
+}

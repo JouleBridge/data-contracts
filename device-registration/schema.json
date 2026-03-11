@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/device-registration/v1/schema.json",
+  "title": "DeviceRegistration",
+  "type": "object",
+  "required": ["device_id", "public_key", "registered_at"],
+  "properties": {
+    "device_id": { "type": "string" },
+    "public_key": { "type": "string" },
+    "registered_at": { "type": "string", "format": "date-time" },
+    "site_id": { "type": "string" },
+    "tenant_id": { "type": "string" }
+  },
+  "additionalProperties": true
+}

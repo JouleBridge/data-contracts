@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/evidence-pack-request/v1/schema.json",
+  "title": "EvidencePackRequest",
+  "type": "object",
+  "required": ["subject_type", "generated_at", "time_range"],
+  "properties": {
+    "subject_type": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "tenant_id": { "type": "string" },
+    "site_id": { "type": "string" },
+    "device_id": { "type": "string" },
+    "format": { "type": "string" },
+    "include_sample_proofs": { "type": "boolean" },
+    "time_range": {
+      "type": "object",
+      "required": ["start", "end"],
+      "properties": {
+        "start": { "type": "string", "format": "date-time" },
+        "end": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}

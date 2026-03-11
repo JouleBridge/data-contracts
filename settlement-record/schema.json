@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/settlement-record/v1/schema.json",
+  "title": "SettlementRecord",
+  "type": "object",
+  "required": ["record_id", "counterparty_a", "counterparty_b", "interval_start", "interval_end", "quantity"],
+  "properties": {
+    "record_id": { "type": "string" },
+    "counterparty_a": { "type": "string" },
+    "counterparty_b": { "type": "string" },
+    "interval_start": { "type": "string", "format": "date-time" },
+    "interval_end": { "type": "string", "format": "date-time" },
+    "quantity": { "type": "number" }
+  },
+  "additionalProperties": true
+}

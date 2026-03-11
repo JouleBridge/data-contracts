@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/sync-batch/v1/schema.json",
+  "title": "SyncBatch",
+  "type": "object",
+  "required": ["batch_id", "created_at", "events"],
+  "properties": {
+    "batch_id": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "events": { "type": "array", "items": { "type": "object" } }
+  },
+  "additionalProperties": true
+}

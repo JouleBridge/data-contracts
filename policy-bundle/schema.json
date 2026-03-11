@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/policy-bundle/v1/schema.json",
+  "title": "PolicyBundle",
+  "type": "object",
+  "required": ["version", "default_action", "rules"],
+  "properties": {
+    "version": { "type": "string" },
+    "default_action": { "type": "string" },
+    "rules": { "type": "array", "items": { "type": "object" } }
+  },
+  "additionalProperties": true
+}
