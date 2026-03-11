@@ -3,15 +3,58 @@
   "$id": "https://joulebridge/contracts/proof-envelope/v1/schema.json",
   "title": "ProofEnvelope",
   "type": "object",
-  "required": ["proof_id", "event_id", "payload_hash", "signature", "public_key", "signed_at"],
+  "required": [
+    "proof_id",
+    "proof_version",
+    "event",
+    "event_hash_hex",
+    "previous_chain_hash_hex",
+    "chain_hash_hex",
+    "key_id",
+    "key_version",
+    "signature_context",
+    "signer_public_key_hex",
+    "payload_hash_hex",
+    "signature_hex",
+    "signed_at"
+  ],
   "properties": {
     "proof_id": { "type": "string" },
-    "event_id": { "type": "string" },
-    "payload_hash": { "type": "string" },
-    "signature": { "type": "string" },
-    "public_key": { "type": "string" },
-    "signed_at": { "type": "string", "format": "date-time" },
-    "proof_version": { "type": "string", "default": "v1" }
+    "proof_version": { "type": "string", "default": "v2" },
+    "event": {
+      "type": "object",
+      "required": [
+        "event_id",
+        "schema_version",
+        "sector",
+        "event_type",
+        "source",
+        "timestamp",
+        "timestamp_ns",
+        "payload"
+      ],
+      "properties": {
+        "event_id": { "type": "string" },
+        "schema_version": { "type": "string" },
+        "sector": { "type": "string" },
+        "event_type": { "type": "string" },
+        "source": { "type": "string" },
+        "timestamp": { "type": "integer" },
+        "timestamp_ns": { "type": "integer" },
+        "payload": {}
+      },
+      "additionalProperties": true
+    },
+    "event_hash_hex": { "type": "string" },
+    "previous_chain_hash_hex": { "type": "string" },
+    "chain_hash_hex": { "type": "string" },
+    "key_id": { "type": "string" },
+    "key_version": { "type": "integer" },
+    "signature_context": { "type": "string" },
+    "signer_public_key_hex": { "type": "string" },
+    "payload_hash_hex": { "type": "string" },
+    "signature_hex": { "type": "string" },
+    "signed_at": { "type": "integer" }
   },
   "additionalProperties": true
 }
