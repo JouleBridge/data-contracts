@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/evidence-pack-artifact/v1/schema.json",
+  "title": "EvidencePackArtifact",
+  "type": "object",
+  "required": [
+    "artifact_id",
+    "pack_id",
+    "artifact_type",
+    "file_name",
+    "content_type",
+    "checksum_sha256_hex",
+    "generated_at"
+  ],
+  "properties": {
+    "artifact_id": { "type": "string" },
+    "pack_id": { "type": "string" },
+    "artifact_type": { "type": "string" },
+    "file_name": { "type": "string" },
+    "content_type": { "type": "string" },
+    "item_count": { "type": ["integer", "null"] },
+    "checksum_sha256_hex": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "content": {}
+  },
+  "additionalProperties": false
+}

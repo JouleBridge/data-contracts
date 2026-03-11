@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/distribution-assignment/v1/schema.json",
+  "title": "DistributionAssignment",
+  "type": "object",
+  "required": ["channel", "bundle_id", "tenant_id", "target_type", "issued_by"],
+  "properties": {
+    "assignment_id": { "type": "string" },
+    "channel": { "type": "string", "enum": ["policy", "config"] },
+    "bundle_id": { "type": "string" },
+    "tenant_id": { "type": "string" },
+    "site_id": { "type": "string" },
+    "device_id": { "type": "string" },
+    "target_type": { "type": "string", "enum": ["tenant", "site", "device"] },
+    "rollout_state": { "type": "string", "enum": ["active", "superseded"] },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "effective_at": { "type": "string", "format": "date-time" },
+    "issued_by": { "type": "string" },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": true
+}

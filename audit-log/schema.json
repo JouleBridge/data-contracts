@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/audit-log/v1/schema.json",
+  "title": "AuditLogEntry",
+  "type": "object",
+  "required": [
+    "audit_id",
+    "request_id",
+    "recorded_at",
+    "method",
+    "path",
+    "actor_name",
+    "actor_role",
+    "action",
+    "outcome",
+    "resource_type",
+    "resource_id"
+  ],
+  "properties": {
+    "audit_id": { "type": "string" },
+    "request_id": { "type": "string" },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "method": { "type": "string" },
+    "path": { "type": "string" },
+    "actor_name": { "type": "string" },
+    "actor_role": { "type": "string" },
+    "actor_tenant_id": { "type": ["string", "null"] },
+    "actor_device_id": { "type": ["string", "null"] },
+    "action": { "type": "string" },
+    "outcome": { "type": "string", "enum": ["success", "denied", "error"] },
+    "tenant_id": { "type": ["string", "null"] },
+    "resource_type": { "type": "string" },
+    "resource_id": { "type": "string" },
+    "details": {}
+  },
+  "additionalProperties": false
+}

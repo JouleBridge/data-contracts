@@ -3,12 +3,90 @@
   "$id": "https://joulebridge/contracts/evidence-pack/v1/schema.json",
   "title": "EvidencePack",
   "type": "object",
-  "required": ["pack_id", "subject_type", "generated_at", "artifacts"],
+  "required": [
+    "pack_id",
+    "subject_type",
+    "requested_at",
+    "started_at",
+    "completed_at",
+    "generated_at",
+    "status",
+    "requested_format",
+    "summary",
+    "artifact_count",
+    "artifacts",
+    "request",
+    "job_history"
+  ],
   "properties": {
     "pack_id": { "type": "string" },
     "subject_type": { "type": "string" },
+    "requested_at": { "type": "string", "format": "date-time" },
+    "started_at": { "type": "string", "format": "date-time" },
+    "completed_at": { "type": "string", "format": "date-time" },
     "generated_at": { "type": "string", "format": "date-time" },
-    "artifacts": { "type": "array", "items": { "type": "object" } }
+    "status": { "type": "string" },
+    "requested_format": { "type": "string" },
+    "summary": {
+      "type": "object",
+      "required": ["event_count", "proof_count", "device_count", "verification"],
+      "properties": {
+        "event_count": { "type": "integer" },
+        "proof_count": { "type": "integer" },
+        "device_count": { "type": "integer" },
+        "verification": {
+          "type": "object",
+          "required": ["verified", "warning", "failed"],
+          "properties": {
+            "verified": { "type": "integer" },
+            "warning": { "type": "integer" },
+            "failed": { "type": "integer" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "artifact_count": { "type": "integer" },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "artifact_id",
+          "pack_id",
+          "artifact_type",
+          "file_name",
+          "content_type",
+          "checksum_sha256_hex",
+          "generated_at"
+        ],
+        "properties": {
+          "artifact_id": { "type": "string" },
+          "pack_id": { "type": "string" },
+          "artifact_type": { "type": "string" },
+          "file_name": { "type": "string" },
+          "content_type": { "type": "string" },
+          "item_count": { "type": ["integer", "null"] },
+          "checksum_sha256_hex": { "type": "string" },
+          "generated_at": { "type": "string", "format": "date-time" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "request": { "type": "object" },
+    "job_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["state", "recorded_at"],
+        "properties": {
+          "state": { "type": "string" },
+          "recorded_at": { "type": "string", "format": "date-time" }
+        },
+        "additionalProperties": false
+      }
+    }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }

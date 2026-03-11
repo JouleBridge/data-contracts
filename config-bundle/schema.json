@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/config-bundle/v1/schema.json",
+  "title": "ConfigBundle",
+  "type": "object",
+  "required": ["version", "issued_at", "issued_by", "config", "signature_hex"],
+  "properties": {
+    "version": { "type": "string" },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "issued_by": { "type": "string" },
+    "notes": { "type": "string" },
+    "config": {
+      "type": "object"
+    },
+    "signature_hex": { "type": "string" }
+  },
+  "additionalProperties": true
+}

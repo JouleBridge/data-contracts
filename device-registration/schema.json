@@ -26,6 +26,21 @@
     "registered_at": { "type": "string", "format": "date-time" },
     "site_id": { "type": "string" },
     "tenant_id": { "type": "string" },
+    "mtls_binding": {
+      "type": "object",
+      "properties": {
+        "mode": { "type": "string" },
+        "fingerprint256": { "type": "string" },
+        "subject_common_name": { "type": "string" },
+        "issuer_common_name": { "type": "string" },
+        "serial_number": { "type": "string" },
+        "valid_from": { "type": "string" },
+        "valid_to": { "type": "string" },
+        "first_bound_at": { "type": "string", "format": "date-time" },
+        "last_seen_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": true
+    },
     "key_history": {
       "type": "array",
       "items": {
