@@ -54,7 +54,28 @@
     "signer_public_key_hex": { "type": "string" },
     "payload_hash_hex": { "type": "string" },
     "signature_hex": { "type": "string" },
-    "signed_at": { "type": "integer" }
+    "signed_at": { "type": "integer" },
+    "timestamp_attestation": {
+      "type": "object",
+      "properties": {
+        "observed_timestamp_ns": { "type": "integer" },
+        "signed_at": { "type": "integer" },
+        "attested_at": { "type": "integer" },
+        "authority": { "type": "string" },
+        "attestation_hash_hex": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "packaging": {
+      "type": "object",
+      "properties": {
+        "media_type": { "type": "string" },
+        "cose_sign1_hex": { "type": "string" },
+        "evidence_sha256_hex": { "type": "string" },
+        "export_ready": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    }
   },
   "additionalProperties": true
 }
