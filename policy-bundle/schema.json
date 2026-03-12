@@ -16,7 +16,7 @@
         "required": ["name", "rule_type", "action"],
         "properties": {
           "name": { "type": "string" },
-          "rule_type": { "type": "string", "enum": ["match", "range", "temporal"] },
+          "rule_type": { "type": "string", "enum": ["match", "range", "temporal", "consent", "threshold", "rate", "anomaly"] },
           "action": { "type": "string", "enum": ["allow", "deny", "flag"] },
           "sector": { "type": "string" },
           "event_type": { "type": "string" },
@@ -26,7 +26,22 @@
           "min_value": { "type": "number" },
           "max_value": { "type": "number" },
           "max_future_offset_secs": { "type": "integer" },
-          "max_past_offset_secs": { "type": "integer" }
+          "max_past_offset_secs": { "type": "integer" },
+          "consent_required": { "type": "boolean" },
+          "consent_allowed_statuses": { "type": "array", "items": { "type": "string" } },
+          "consent_granted_field": { "type": "string" },
+          "consent_status_field": { "type": "string" },
+          "consent_expires_at_field": { "type": "string" },
+          "baseline_field": { "type": "string" },
+          "group_by_field": { "type": "string" },
+          "delta_abs_max": { "type": "number" },
+          "delta_ratio_max": { "type": "number" },
+          "lookback_window_secs": { "type": "integer" },
+          "rate_window_secs": { "type": "integer", "minimum": 0 },
+          "rate_max_events": { "type": "integer", "minimum": 0 },
+          "anomaly_window_size": { "type": "integer", "minimum": 1 },
+          "anomaly_min_samples": { "type": "integer", "minimum": 2 },
+          "anomaly_sigma_max": { "type": "number", "minimum": 0 }
         },
         "additionalProperties": true
       }

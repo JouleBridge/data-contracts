@@ -3,14 +3,32 @@
   "$id": "https://joulebridge/contracts/settlement-record/v1/schema.json",
   "title": "SettlementRecord",
   "type": "object",
-  "required": ["record_id", "counterparty_a", "counterparty_b", "interval_start", "interval_end", "quantity"],
+  "required": ["record_id", "run_id", "tenant_id", "counterparty_a", "counterparty_b", "interval_start", "interval_end", "quantity"],
   "properties": {
     "record_id": { "type": "string" },
+    "run_id": { "type": "string" },
+    "tenant_id": { "type": "string" },
     "counterparty_a": { "type": "string" },
     "counterparty_b": { "type": "string" },
     "interval_start": { "type": "string", "format": "date-time" },
     "interval_end": { "type": "string", "format": "date-time" },
-    "quantity": { "type": "number" }
+    "quantity": { "type": "number" },
+    "interval_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "proof_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "evidence_pack_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "settlement_state": {
+      "type": "string",
+      "enum": ["balanced", "shortfall", "overmatch"]
+    }
   },
   "additionalProperties": true
 }
