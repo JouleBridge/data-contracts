@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/device-provision-request/v1/schema.json",
+  "title": "DeviceProvisionRequest",
+  "type": "object",
+  "required": ["reg_token"],
+  "properties": {
+    "reg_token": { "type": "string" },
+    "firmware_version": { "type": "string" },
+    "ip_address": { "type": "string" },
+    "metadata": { "type": "object" }
+  },
+  "additionalProperties": true
+}

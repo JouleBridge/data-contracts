@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/site-config-template/v1/schema.json",
+  "title": "SiteConfigTemplate",
+  "type": "object",
+  "required": ["config_template"],
+  "properties": {
+    "config_template": { "type": "object" }
+  },
+  "additionalProperties": true
+}

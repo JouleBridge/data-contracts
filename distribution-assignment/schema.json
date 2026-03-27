@@ -6,7 +6,7 @@
   "required": ["channel", "bundle_id", "tenant_id", "target_type", "issued_by"],
   "properties": {
     "assignment_id": { "type": "string" },
-    "channel": { "type": "string", "enum": ["policy", "config"] },
+    "channel": { "type": "string", "enum": ["policy", "config", "binary"] },
     "bundle_id": { "type": "string" },
     "tenant_id": { "type": "string" },
     "site_id": { "type": "string" },

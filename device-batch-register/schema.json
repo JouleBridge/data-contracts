@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/device-batch-register/v1/schema.json",
+  "title": "DeviceBatchRegister",
+  "type": "object",
+  "required": ["tenant_id", "device_ids", "site_id"],
+  "properties": {
+    "tenant_id": { "type": "string" },
+    "site_id": { "type": "string" },
+    "device_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/site/v1/schema.json",
+  "title": "Site",
+  "type": "object",
+  "required": ["site_id", "tenant_id", "name", "config_template"],
+  "properties": {
+    "site_id": { "type": "string" },
+    "tenant_id": { "type": "string" },
+    "name": { "type": "string" },
+    "address": { "type": "string" },
+    "config_template": { "type": "object" }
+  },
+  "additionalProperties": true
+}

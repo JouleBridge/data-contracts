@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/device-update-ack/v1/schema.json",
+  "title": "DeviceUpdateAck",
+  "type": "object",
+  "required": ["assignment_id", "status"],
+  "properties": {
+    "assignment_id": { "type": "string" },
+    "bundle_id": { "type": "string" },
+    "status": { "type": "string", "enum": ["applied", "rollback", "failed"] },
+    "software_version": { "type": "string" },
+    "binary_sha256": { "type": "string" },
+    "details": { "type": "object" }
+  },
+  "additionalProperties": true
+}
