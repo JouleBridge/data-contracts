@@ -1,0 +1,327 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/site-proof-export/v1/schema.json",
+  "title": "SiteProofExport",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "export_id",
+    "site_id",
+    "tenant_id",
+    "depot_id",
+    "route_id",
+    "generated_at",
+    "bundle",
+    "verification_report",
+    "dispatch_feedback",
+    "diagnostics",
+    "manifest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "site-proof-export/v1"
+    },
+    "export_id": { "type": "string" },
+    "site_id": { "type": "string" },
+    "tenant_id": { "type": "string" },
+    "depot_id": { "type": "string" },
+    "route_id": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "bundle": {
+      "$ref": "../site-proof-bundle/schema.json"
+    },
+    "verification_report": {
+      "type": "object",
+      "required": [
+        "proof_id",
+        "verification_state",
+        "summary",
+        "checks",
+        "generated_at"
+      ],
+      "properties": {
+        "proof_id": { "type": "string" },
+        "event_id": { "type": ["string", "null"] },
+        "device_id": { "type": ["string", "null"] },
+        "verification_state": {
+          "type": "string",
+          "enum": ["verified", "warning", "failed"]
+        },
+        "summary": {
+          "type": "object",
+          "required": ["total_checks", "pass_count", "warn_count", "fail_count"],
+          "properties": {
+            "total_checks": { "type": "integer", "minimum": 0 },
+            "pass_count": { "type": "integer", "minimum": 0 },
+            "warn_count": { "type": "integer", "minimum": 0 },
+            "fail_count": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "status", "message"],
+            "properties": {
+              "name": { "type": "string" },
+              "status": {
+                "type": "string",
+                "enum": ["pass", "warn", "fail"]
+              },
+              "message": { "type": "string" },
+              "details": {}
+            },
+            "additionalProperties": false
+          }
+        },
+        "linked_event": {
+          "type": ["object", "null"],
+          "properties": {
+            "event_id": { "type": "string" },
+            "device_id": { "type": ["string", "null"] },
+            "tenant_id": { "type": ["string", "null"] },
+            "site_id": { "type": ["string", "null"] }
+          },
+          "required": ["event_id", "device_id", "tenant_id", "site_id"],
+          "additionalProperties": false
+        },
+        "linked_device": {
+          "type": ["object", "null"],
+          "properties": {
+            "device_id": { "type": "string" },
+            "tenant_id": { "type": ["string", "null"] },
+            "site_id": { "type": ["string", "null"] },
+            "lifecycle_state": { "type": ["string", "null"] }
+          },
+          "required": ["device_id", "tenant_id", "site_id", "lifecycle_state"],
+          "additionalProperties": false
+        },
+        "generated_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "dispatch_feedback": {
+      "type": "object",
+      "required": ["route_delivery", "acknowledgements", "summary", "degraded_reasons"],
+      "properties": {
+        "route_delivery": {
+          "type": "object",
+          "required": ["route_message_id", "target_endpoint", "dispatch_count", "delivery_state", "delivered_at", "error"],
+          "properties": {
+            "route_message_id": { "type": "string" },
+            "target_endpoint": { "type": "string" },
+            "dispatch_count": { "type": "integer", "minimum": 0 },
+            "delivery_state": { "type": "string" },
+            "delivered_at": { "type": ["string", "null"], "format": "date-time" },
+            "error": { "type": ["string", "null"] }
+          },
+          "additionalProperties": false
+        },
+        "acknowledgements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["message_id", "emitted_at", "peer_endpoint", "dispatch_id", "status", "detail", "rejection_code"],
+            "properties": {
+              "message_id": { "type": "string" },
+              "emitted_at": { "type": "string", "format": "date-time" },
+              "peer_endpoint": { "type": "string" },
+              "dispatch_id": { "type": "string" },
+              "status": { "type": "string" },
+              "detail": { "type": "string" },
+              "rejection_code": { "type": ["string", "null"] }
+            },
+            "additionalProperties": false
+          }
+        },
+        "summary": {
+          "type": "object",
+          "required": [
+            "expected_dispatch_count",
+            "acknowledged_dispatch_count",
+            "accepted_dispatch_count",
+            "applied_dispatch_count",
+            "rejected_dispatch_count",
+            "timed_out_dispatch_count",
+            "pending_dispatch_ids",
+            "ack_timeout"
+          ],
+          "properties": {
+            "expected_dispatch_count": { "type": "integer", "minimum": 0 },
+            "acknowledged_dispatch_count": { "type": "integer", "minimum": 0 },
+            "accepted_dispatch_count": { "type": "integer", "minimum": 0 },
+            "applied_dispatch_count": { "type": "integer", "minimum": 0 },
+            "rejected_dispatch_count": { "type": "integer", "minimum": 0 },
+            "timed_out_dispatch_count": { "type": "integer", "minimum": 0 },
+            "pending_dispatch_ids": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "ack_timeout": { "type": "boolean" }
+          },
+          "additionalProperties": false
+        },
+        "degraded_reasons": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "diagnostics": {
+      "type": "object",
+      "required": [
+        "site_id",
+        "route_id",
+        "planner_status",
+        "bus_socket_path",
+        "bus_peer_endpoint",
+        "route_delivery_state",
+        "admitted_sessions",
+        "rejected_sessions",
+        "reservation_conflicts",
+        "dispatches",
+        "dispatch_feedback",
+        "degraded_reasons",
+        "total_allocated_kw",
+        "residual_headroom_kw",
+        "snapshot_recorded_at_epoch_s",
+        "input_qualification"
+      ],
+      "properties": {
+        "site_id": { "type": "string" },
+        "route_id": { "type": "string" },
+        "planner_status": { "type": "string" },
+        "used_fallback": { "type": "boolean" },
+        "live_cloud_source": { "type": "boolean" },
+        "bus_socket_path": { "type": "string" },
+        "bus_peer_endpoint": { "type": "string" },
+        "route_delivery_state": { "type": "string" },
+        "admitted_sessions": { "type": "array", "items": { "type": "string" } },
+        "rejected_sessions": { "type": "array", "items": { "type": "string" } },
+        "reservation_conflicts": { "type": "array", "items": { "type": "object" } },
+        "dispatches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "dispatch_id",
+              "session_id",
+              "asset_id",
+              "allocated_power_kw",
+              "target_power_kw",
+              "reason",
+              "input_qualification_state",
+              "input_qualification_reasons"
+            ],
+            "properties": {
+              "dispatch_id": { "type": "string" },
+              "session_id": { "type": "string" },
+              "asset_id": { "type": "string" },
+              "allocated_power_kw": { "type": "number" },
+              "target_power_kw": { "type": "number" },
+              "reason": { "type": "string" },
+              "input_qualification_state": {
+                "type": "string",
+                "enum": ["fully_qualified", "degraded_allowed"]
+              },
+              "input_qualification_reasons": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "dispatch_feedback": { "type": "object" },
+        "degraded_reasons": { "type": "array", "items": { "type": "string" } },
+        "total_allocated_kw": { "type": "number" },
+        "residual_headroom_kw": { "type": "number" },
+        "snapshot_recorded_at_epoch_s": { "type": "integer", "minimum": 0 },
+        "input_qualification": {
+          "type": "object",
+          "required": [
+            "qualification_state",
+            "reason_markers",
+            "non_fresh_subjects"
+          ],
+          "properties": {
+            "qualification_state": {
+              "type": "string",
+              "enum": ["fully_qualified", "degraded_allowed"]
+            },
+            "reason_markers": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "non_fresh_subjects": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "charger_state",
+                  "ess_state",
+                  "meter_state",
+                  "tariff_state",
+                  "reservation_state",
+                  "site_readiness"
+                ]
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "manifest": {
+      "type": "object",
+      "required": ["artifact_count", "artifacts"],
+      "properties": {
+        "artifact_count": { "type": "integer", "minimum": 1 },
+        "artifacts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "artifact_id",
+              "artifact_type",
+              "file_name",
+              "content_type",
+              "checksum_sha256_hex",
+              "size_bytes",
+              "generated_at"
+            ],
+            "properties": {
+              "artifact_id": { "type": "string" },
+                "artifact_type": {
+                  "type": "string",
+                  "enum": [
+                    "site_proof_bundle_json",
+                    "proof_verification_report_json",
+                    "site_proof_export_json",
+                    "dispatch_feedback_json",
+                    "site_routing_diagnostics_json"
+                  ]
+                },
+              "file_name": { "type": "string" },
+              "content_type": { "type": "string" },
+              "checksum_sha256_hex": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "size_bytes": { "type": "integer", "minimum": 1 },
+              "generated_at": { "type": "string", "format": "date-time" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

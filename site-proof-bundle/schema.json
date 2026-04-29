@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/site-proof-bundle/v1/schema.json",
+  "title": "SiteProofBundle",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "bundle_id",
+    "site_id",
+    "tenant_id",
+    "depot_id",
+    "route_id",
+    "planner_status",
+    "generated_at",
+    "root_hash_hex",
+    "entry_count",
+    "entries"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "site-proof-bundle/v1"
+    },
+    "bundle_id": { "type": "string" },
+    "site_id": { "type": "string" },
+    "tenant_id": { "type": "string" },
+    "depot_id": { "type": "string" },
+    "route_id": { "type": "string" },
+    "planner_status": { "type": "string" },
+    "used_fallback": { "type": "boolean" },
+    "live_cloud_source": { "type": "boolean" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "root_hash_hex": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "entry_count": { "type": "integer", "minimum": 1 },
+    "summary": {
+      "type": "object",
+      "required": [
+        "asset_count",
+        "session_count",
+        "reservation_count",
+        "admitted_session_count",
+        "rejected_session_count",
+        "dispatch_count",
+        "acknowledged_dispatch_count",
+        "applied_dispatch_count",
+        "rejected_dispatch_count",
+        "timed_out_dispatch_count",
+        "total_allocated_kw"
+      ],
+      "properties": {
+        "asset_count": { "type": "integer", "minimum": 0 },
+        "session_count": { "type": "integer", "minimum": 0 },
+        "reservation_count": { "type": "integer", "minimum": 0 },
+        "admitted_session_count": { "type": "integer", "minimum": 0 },
+        "rejected_session_count": { "type": "integer", "minimum": 0 },
+        "dispatch_count": { "type": "integer", "minimum": 0 },
+        "acknowledged_dispatch_count": { "type": "integer", "minimum": 0 },
+        "applied_dispatch_count": { "type": "integer", "minimum": 0 },
+        "rejected_dispatch_count": { "type": "integer", "minimum": 0 },
+        "timed_out_dispatch_count": { "type": "integer", "minimum": 0 },
+        "total_allocated_kw": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "sequence",
+          "stage",
+          "hash_hex",
+          "previous_hash_hex",
+          "payload"
+        ],
+        "properties": {
+          "sequence": { "type": "integer", "minimum": 1 },
+            "stage": {
+              "type": "string",
+              "enum": [
+                "site_snapshot",
+                "admission_report",
+                "route_plan",
+                "route_delivery",
+                "dispatch_feedback"
+              ]
+            },
+          "hash_hex": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "previous_hash_hex": {
+            "type": ["string", "null"],
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "payload": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
