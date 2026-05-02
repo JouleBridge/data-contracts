@@ -7,9 +7,20 @@
   "properties": {
     "site_id": { "type": "string" },
     "tenant_id": { "type": "string" },
+    "depot_id": { "type": "string" },
     "name": { "type": "string" },
     "address": { "type": "string" },
-    "config_template": { "type": "object" }
+    "registration_state": { "type": "string", "enum": ["registered", "commissioning", "active", "suspended"] },
+    "enrollment_state": { "type": "string", "enum": ["pending", "enrolled", "suspended"] },
+    "registered_at": { "type": "string", "format": "date-time" },
+    "enrolled_at": { "type": "string", "format": "date-time" },
+    "config_template": { "type": "object" },
+    "runtime": { "type": "object" },
+    "site_keys": { "type": "object" },
+    "commissioning": { "type": "object" },
+    "routing_state": { "type": "object" },
+    "tariff_profile": { "type": "object" },
+    "forecast_profile": { "type": "object" }
   },
   "additionalProperties": true
 }

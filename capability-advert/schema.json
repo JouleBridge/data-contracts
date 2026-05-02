@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/capability-advert/v1/schema.json",
+  "title": "CapabilityAdvert",
+  "type": "object",
+  "required": ["advert_id", "asset_id", "writable", "max_power_kw"],
+  "properties": {
+    "advert_id": { "type": "string" },
+    "asset_id": { "type": "string" },
+    "writable": { "type": "boolean" },
+    "min_power_kw": { "type": "number", "minimum": 0 },
+    "max_power_kw": { "type": "number", "minimum": 0 },
+    "modes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "protocol": { "type": "string" }
+  },
+  "additionalProperties": true
+}

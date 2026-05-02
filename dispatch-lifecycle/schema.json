@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/dispatch-lifecycle/v1/schema.json",
+  "title": "DispatchLifecycle",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "stage",
+    "site_id",
+    "route_id",
+    "dispatch_id",
+    "asset_id",
+    "session_id",
+    "continuity"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "dispatch-lifecycle/v1"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "route-intent",
+        "dispatch-order",
+        "command-ack",
+        "execution-proof"
+      ]
+    },
+    "site_id": { "type": "string" },
+    "route_id": { "type": "string" },
+    "dispatch_id": { "type": "string" },
+    "asset_id": { "type": "string" },
+    "session_id": { "type": "string" },
+    "planner_status": { "type": "string" },
+    "used_fallback": { "type": "boolean" },
+    "dispatch_count": { "type": "integer", "minimum": 1 },
+    "dispatches": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/dispatchOrder" }
+    },
+    "allocated_power_kw": { "type": "number" },
+    "target_power_kw": { "type": "number" },
+    "reason": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["accepted", "rejected", "timed_out", "applied"]
+    },
+    "detail": { "type": "string" },
+    "rejection_code": { "type": ["string", "null"] },
+    "attempt_count": { "type": "integer", "minimum": 1 },
+    "controller": { "type": "string" },
+    "latency_ms": { "type": "integer", "minimum": 0 },
+    "outcome": {
+      "type": "string",
+      "enum": ["applied", "rejected", "timed_out"]
+    },
+    "executed_power_kw": { "type": "number" },
+    "continuity": { "$ref": "#/$defs/continuity" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "stage": { "const": "route-intent" }
+        }
+      },
+      "then": {
+        "required": [
+          "planner_status",
+          "used_fallback",
+          "dispatch_count",
+          "dispatches"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "stage": { "const": "dispatch-order" }
+        }
+      },
+      "then": {
+        "required": [
+          "planner_status",
+          "used_fallback",
+          "allocated_power_kw",
+          "target_power_kw",
+          "reason"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "stage": { "const": "command-ack" }
+        }
+      },
+      "then": {
+        "required": [
+          "allocated_power_kw",
+          "target_power_kw",
+          "status",
+          "detail",
+          "attempt_count",
+          "controller"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "stage": { "const": "execution-proof" }
+        }
+      },
+      "then": {
+        "required": [
+          "allocated_power_kw",
+          "target_power_kw",
+          "attempt_count",
+          "controller",
+          "outcome",
+          "executed_power_kw",
+          "latency_ms"
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "dispatchOrder": {
+      "type": "object",
+      "required": [
+        "dispatch_id",
+        "session_id",
+        "asset_id",
+        "allocated_power_kw",
+        "target_power_kw",
+        "reason"
+      ],
+      "properties": {
+        "dispatch_id": { "type": "string" },
+        "session_id": { "type": "string" },
+        "asset_id": { "type": "string" },
+        "allocated_power_kw": { "type": "number" },
+        "target_power_kw": { "type": "number" },
+        "reason": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "continuity": {
+      "type": "object",
+      "required": [
+        "trace_id",
+        "route_message_id",
+        "intent_event_id"
+      ],
+      "properties": {
+        "trace_id": { "type": ["string", "null"] },
+        "route_message_id": { "type": "string" },
+        "intent_event_id": { "type": "string" },
+        "dispatch_order_event_id": { "type": ["string", "null"] },
+        "command_ack_event_id": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/command-ack/v1/schema.json",
+  "title": "CommandAck",
+  "type": "object",
+  "required": ["dispatch_id", "status", "detail"],
+  "properties": {
+    "dispatch_id": { "type": "string" },
+    "route_id": { "type": "string" },
+    "site_id": { "type": "string" },
+    "asset_id": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["applied", "rejected", "timed_out", "retrying"]
+    },
+    "detail": { "type": "string" },
+    "rejection_code": { "type": ["string", "null"] }
+  },
+  "additionalProperties": true
+}

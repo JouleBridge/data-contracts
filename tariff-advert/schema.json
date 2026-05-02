@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/tariff-advert/v1/schema.json",
+  "title": "TariffAdvert",
+  "type": "object",
+  "required": ["label", "starts_in_minutes", "ends_in_minutes", "price_per_kwh"],
+  "properties": {
+    "label": { "type": "string" },
+    "starts_in_minutes": { "type": "integer", "minimum": 0 },
+    "ends_in_minutes": { "type": "integer", "minimum": 0 },
+    "price_per_kwh": { "type": "number", "minimum": 0 }
+  },
+  "additionalProperties": true
+}

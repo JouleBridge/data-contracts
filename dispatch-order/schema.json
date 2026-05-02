@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/dispatch-order/v1/schema.json",
+  "title": "DispatchOrder",
+  "type": "object",
+  "required": ["dispatch_id", "route_id", "asset_id", "allocated_power_kw"],
+  "properties": {
+    "dispatch_id": { "type": "string" },
+    "route_id": { "type": "string" },
+    "session_id": { "type": "string" },
+    "asset_id": { "type": "string" },
+    "allocated_power_kw": { "type": "number" },
+    "target_power_kw": { "type": "number" },
+    "reason": { "type": "string" }
+  },
+  "additionalProperties": true
+}

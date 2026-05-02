@@ -1,0 +1,319 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/local-bus-message/v1/schema.json",
+  "title": "LocalBusMessage",
+  "type": "object",
+  "required": [
+    "envelope_version",
+    "contract_family",
+    "message_id",
+    "source",
+    "target",
+    "message_type",
+    "emitted_at",
+    "payload",
+    "signature"
+  ],
+  "properties": {
+    "envelope_version": {
+      "type": "string",
+      "const": "asset-agent-local-bus/v1"
+    },
+    "contract_family": {
+      "type": "string",
+      "const": "asset-agent-local-bus/v1",
+      "default": "asset-agent-local-bus/v1"
+    },
+    "message_id": {
+      "type": "string"
+    },
+    "trace_id": {
+      "type": ["string", "null"]
+    },
+    "source": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string"
+    },
+    "message_type": {
+      "type": "string",
+      "enum": [
+        "route_delivery",
+        "dispatch_ack",
+        "state_advert",
+        "reservation_state",
+        "diagnostics_handoff"
+      ]
+    },
+    "emitted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "payload": {
+      "type": "object"
+    },
+    "signature": {
+      "type": "object",
+      "required": [
+        "algorithm",
+        "context",
+        "key_id",
+        "digest_hex",
+        "signature_hex"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "const": "hmac-sha256"
+        },
+        "context": {
+          "type": "string",
+          "const": "joulebridge.local-bus.v1"
+        },
+        "key_id": {
+          "type": "string"
+        },
+        "digest_hex": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "signature_hex": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "message_type": {
+            "const": "route_delivery"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/routeDeliveryPayload"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "message_type": {
+            "const": "dispatch_ack"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/dispatchAckPayload"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "message_type": {
+            "const": "state_advert"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/stateAdvertPayload"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "message_type": {
+            "const": "reservation_state"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/reservationStatePayload"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "message_type": {
+            "const": "diagnostics_handoff"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/diagnosticsHandoffPayload"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "dispatchOrder": {
+      "type": "object",
+      "required": [
+        "dispatch_id",
+        "session_id",
+        "asset_id",
+        "allocated_power_kw",
+        "target_power_kw",
+        "reason"
+      ],
+      "properties": {
+        "dispatch_id": { "type": "string" },
+        "session_id": { "type": "string" },
+        "asset_id": { "type": "string" },
+        "allocated_power_kw": { "type": "number" },
+        "target_power_kw": { "type": "number" },
+        "reason": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "routeDeliveryPayload": {
+      "type": "object",
+      "required": [
+        "site_id",
+        "route_id",
+        "dispatches",
+        "planner_status"
+      ],
+      "properties": {
+        "site_id": { "type": "string" },
+        "route_id": { "type": "string" },
+        "planner_status": { "type": "string" },
+        "used_fallback": { "type": "boolean" },
+        "dispatches": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/dispatchOrder" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "dispatchAckPayload": {
+      "type": "object",
+      "required": [
+        "site_id",
+        "route_id",
+        "dispatch_id",
+        "status"
+      ],
+      "properties": {
+        "site_id": { "type": "string" },
+        "route_id": { "type": "string" },
+        "dispatch_id": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["accepted", "rejected", "timed_out", "applied"]
+        },
+        "detail": { "type": "string" },
+        "rejection_code": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "stateAdvertPayload": {
+      "type": "object",
+      "required": [
+        "site_id",
+        "asset_states"
+      ],
+      "properties": {
+        "site_id": { "type": "string" },
+        "asset_states": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "asset_id",
+              "connected",
+              "available",
+              "max_power_kw"
+            ],
+            "properties": {
+              "asset_id": { "type": "string" },
+              "connected": { "type": "boolean" },
+              "available": { "type": "boolean" },
+              "max_power_kw": { "type": "number" },
+              "kind": { "type": "string" }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "reservationStatePayload": {
+      "type": "object",
+      "required": [
+        "site_id",
+        "reservations"
+      ],
+      "properties": {
+        "site_id": { "type": "string" },
+        "reservations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "reservation_id",
+              "asset_id",
+              "owner_session_id",
+              "starts_in_minutes",
+              "ends_in_minutes",
+              "reserved_power_kw"
+            ],
+            "properties": {
+              "reservation_id": { "type": "string" },
+              "asset_id": { "type": "string" },
+              "owner_session_id": { "type": "string" },
+              "starts_in_minutes": { "type": "integer" },
+              "ends_in_minutes": { "type": "integer" },
+              "reserved_power_kw": { "type": "number" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "diagnosticsHandoffPayload": {
+      "type": "object",
+      "required": [
+        "site_id",
+        "planner_status",
+        "degraded_reasons"
+      ],
+      "properties": {
+        "site_id": { "type": "string" },
+        "route_id": { "type": ["string", "null"] },
+        "planner_status": { "type": "string" },
+        "degraded_reasons": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "residual_headroom_kw": { "type": "number" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

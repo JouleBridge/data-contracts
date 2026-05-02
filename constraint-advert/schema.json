@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/constraint-advert/v1/schema.json",
+  "title": "ConstraintAdvert",
+  "type": "object",
+  "required": ["constraint_id", "scope", "starts_in_minutes", "ends_in_minutes"],
+  "properties": {
+    "constraint_id": { "type": "string" },
+    "scope": {
+      "type": "string",
+      "enum": ["site", "asset", "session", "topology_node"]
+    },
+    "target_id": { "type": ["string", "null"] },
+    "starts_in_minutes": { "type": "integer", "minimum": 0 },
+    "ends_in_minutes": { "type": "integer", "minimum": 0 },
+    "max_power_kw": { "type": ["number", "null"] },
+    "min_power_kw": { "type": ["number", "null"] },
+    "reason": { "type": "string" }
+  },
+  "additionalProperties": true
+}

@@ -5,6 +5,7 @@ This directory is the source of truth for system-to-system data shapes.
 Contracts that belong here:
 
 - canonical event
+- dispatch lifecycle
 - proof envelope
 - sync batch
 - evidence pack

@@ -1,0 +1,142 @@
+[
+  {
+    "envelope_version": "asset-agent-local-bus/v1",
+    "contract_family": "asset-agent-local-bus/v1",
+    "message_id": "fixture-route-delivery",
+    "trace_id": "fixture-trace",
+    "source": "bridge-kernel",
+    "target": "site-router",
+    "message_type": "route_delivery",
+    "emitted_at": "2026-04-13T00:00:00Z",
+    "payload": {
+      "site_id": "site-alpha",
+      "route_id": "route-alpha",
+      "planner_status": "planned",
+      "used_fallback": false,
+      "dispatches": [
+        {
+          "dispatch_id": "dispatch-01",
+          "session_id": "session-01",
+          "asset_id": "charger-01",
+          "allocated_power_kw": 40,
+          "target_power_kw": 50,
+          "reason": "fixture"
+        }
+      ]
+    },
+    "signature": {
+      "algorithm": "hmac-sha256",
+      "context": "joulebridge.local-bus.v1",
+      "key_id": "fixture-key",
+      "digest_hex": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "signature_hex": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+  },
+  {
+    "envelope_version": "asset-agent-local-bus/v1",
+    "contract_family": "asset-agent-local-bus/v1",
+    "message_id": "fixture-dispatch-ack",
+    "trace_id": null,
+    "source": "bridge-kernel",
+    "target": "site-router",
+    "message_type": "dispatch_ack",
+    "emitted_at": "2026-04-13T00:00:00Z",
+    "payload": {
+      "site_id": "site-alpha",
+      "route_id": "route-alpha",
+      "dispatch_id": "dispatch-01",
+      "status": "accepted",
+      "detail": "command accepted"
+    },
+    "signature": {
+      "algorithm": "hmac-sha256",
+      "context": "joulebridge.local-bus.v1",
+      "key_id": "fixture-key",
+      "digest_hex": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "signature_hex": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    }
+  },
+  {
+    "envelope_version": "asset-agent-local-bus/v1",
+    "contract_family": "asset-agent-local-bus/v1",
+    "message_id": "fixture-state-advert",
+    "trace_id": null,
+    "source": "bridge-kernel",
+    "target": "site-router",
+    "message_type": "state_advert",
+    "emitted_at": "2026-04-13T00:00:00Z",
+    "payload": {
+      "site_id": "site-alpha",
+      "asset_states": [
+        {
+          "asset_id": "charger-01",
+          "kind": "charger",
+          "connected": true,
+          "available": true,
+          "max_power_kw": 90
+        }
+      ]
+    },
+    "signature": {
+      "algorithm": "hmac-sha256",
+      "context": "joulebridge.local-bus.v1",
+      "key_id": "fixture-key",
+      "digest_hex": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "signature_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    }
+  },
+  {
+    "envelope_version": "asset-agent-local-bus/v1",
+    "contract_family": "asset-agent-local-bus/v1",
+    "message_id": "fixture-reservation-state",
+    "trace_id": null,
+    "source": "bridge-kernel",
+    "target": "site-router",
+    "message_type": "reservation_state",
+    "emitted_at": "2026-04-13T00:00:00Z",
+    "payload": {
+      "site_id": "site-alpha",
+      "reservations": [
+        {
+          "reservation_id": "reserve-01",
+          "asset_id": "charger-01",
+          "owner_session_id": "session-01",
+          "starts_in_minutes": 0,
+          "ends_in_minutes": 60,
+          "reserved_power_kw": 45
+        }
+      ]
+    },
+    "signature": {
+      "algorithm": "hmac-sha256",
+      "context": "joulebridge.local-bus.v1",
+      "key_id": "fixture-key",
+      "digest_hex": "1212121212121212121212121212121212121212121212121212121212121212",
+      "signature_hex": "3434343434343434343434343434343434343434343434343434343434343434"
+    }
+  },
+  {
+    "envelope_version": "asset-agent-local-bus/v1",
+    "contract_family": "asset-agent-local-bus/v1",
+    "message_id": "fixture-diagnostics",
+    "trace_id": null,
+    "source": "bridge-kernel",
+    "target": "site-router",
+    "message_type": "diagnostics_handoff",
+    "emitted_at": "2026-04-13T00:00:00Z",
+    "payload": {
+      "site_id": "site-alpha",
+      "route_id": "route-alpha",
+      "planner_status": "fallback",
+      "degraded_reasons": ["solver_unavailable"],
+      "residual_headroom_kw": 10
+    },
+    "signature": {
+      "algorithm": "hmac-sha256",
+      "context": "joulebridge.local-bus.v1",
+      "key_id": "fixture-key",
+      "digest_hex": "5656565656565656565656565656565656565656565656565656565656565656",
+      "signature_hex": "7878787878787878787878787878787878787878787878787878787878787878"
+    }
+  }
+]

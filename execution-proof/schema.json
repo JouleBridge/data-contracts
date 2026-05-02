@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/execution-proof/v1/schema.json",
+  "title": "ExecutionProof",
+  "type": "object",
+  "required": ["proof_id", "dispatch_id", "status", "executed_power_kw"],
+  "properties": {
+    "proof_id": { "type": "string" },
+    "dispatch_id": { "type": "string" },
+    "route_id": { "type": "string" },
+    "site_id": { "type": "string" },
+    "asset_id": { "type": "string" },
+    "status": { "type": "string" },
+    "executed_power_kw": { "type": "number" },
+    "latency_ms": { "type": "integer", "minimum": 0 },
+    "controller": { "type": "string" },
+    "continuity": { "type": "object" }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://joulebridge/contracts/reservation/v1/schema.json",
+  "title": "Reservation",
+  "type": "object",
+  "required": ["reservation_id", "asset_id", "owner_session_id", "starts_in_minutes", "ends_in_minutes"],
+  "properties": {
+    "reservation_id": { "type": "string" },
+    "asset_id": { "type": "string" },
+    "owner_session_id": { "type": "string" },
+    "starts_in_minutes": { "type": "integer", "minimum": 0 },
+    "ends_in_minutes": { "type": "integer", "minimum": 0 },
+    "reserved_power_kw": { "type": "number", "minimum": 0 }
+  },
+  "additionalProperties": true
+}
